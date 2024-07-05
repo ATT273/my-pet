@@ -1,33 +1,49 @@
 <template>
-    <div class="menu-item">
+    <div class="menu-item mb-3">
         <div class="image-wraper flex flex-col justify-between items-center">
             <img
-                src="../assets/grilled_fish.jpg"
-                width="120"
-                height="120"
+                :src="getImageURL(item.img)"
+                width="110"
+                height="110"
                 class="item-img"
                 @click="selectItem"
+                alt="food"
             />
-            <p class="item-name font-bold" @click="selectItem">Grilled fish</p>
-            <p class="item-detail">+10 hunger</p>
+            <p class="item-name font-bold" @click="selectItem">
+                {{ item.name }}
+            </p>
+            <p class="item-detail">+{{ item.effect }} hunger</p>
         </div>
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useAppStore } from "../stores/AppStore";
+import { getImageURL } from "../utils/images-utils";
 
 const appStore = useAppStore();
-const emit = defineEmits({
-    closeMenuFc: [],
-});
+
+type MenuItem = {
+    name: string;
+    effect: number;
+    price: number;
+    img: string;
+    type: string;
+};
+const emits = defineEmits<{
+    closeMenuFc: [];
+}>();
+
+const props = defineProps<{
+    item: MenuItem;
+}>();
+
 const selectItem = () => {
-    console.log("select");
     appStore.updateStat({
-        key: "hunger",
-        value: appStore.cHunger + 10,
+        key: props.item.type,
+        value: props.item.effect,
     });
-    emit("closeMenuFc");
+    emits("closeMenuFc");
 };
 </script>
 
