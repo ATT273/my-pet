@@ -21,31 +21,106 @@ export const useAppStore = defineStore('appStore', () => {
     let cThirst = ref(100)
     let cHappy = ref(100)
     let cHygiene = ref(50)
+    let menuType = ref('food')
 
+
+    // Inventory
+    const foodInventory = ref([
+        {
+            name: "Grilled fish",
+            effect: 20,
+            price: 50,
+            img: "grilled_fish.png",
+            type: "food"
+        },
+        {
+            name: "Rice bowl",
+            effect: 5,
+            price: 10,
+            img: "rice_bowl.png",
+            type: "food"
+        },
+        {
+            name: "Cake slide",
+            effect: 10,
+            price: 25,
+            img: "slice_of_cake.jpg",
+            type: "food"
+        },
+        {
+            name: "Omlet",
+            effect: 10,
+            price: 25,
+            img: "omlet.png",
+            type: "food"
+        },
+        {
+            name: "Salad bowl",
+            effect: 15,
+            price: 30,
+            img: "salad_bowl.jpg",
+            type: "food"
+        }
+    ])
+    const drinkInventory = ref([
+        {
+            name: "Bottle of water",
+            effect: 5,
+            price: 10,
+            img: "water.jpg",
+            type: "drink"
+        },
+        {
+            name: "Coffee",
+            effect: 20,
+            price: 25,
+            img: "coffee.jpg",
+            type: "drink"
+        },
+        {
+            name: "Cola",
+            effect: 25,
+            price: 20,
+            img: "cola.png",
+            type: "drink"
+        },
+        {
+            name: "Orange Juice",
+            effect: 30,
+            price: 30,
+            img: "orange_juice.jpg",
+            type: "drink"
+        },
+        {
+            name: "Milk",
+            effect: 20,
+            price: 15,
+            img: "milk.jpg",
+            type: "drink"
+        },
+    ])
     const changeState = (value: string) => {
-        console.log('changeState', value)
         state.value = value
     }
 
     const updateStat = (props: { key: string, value: number }) => {
         switch (props.key) {
             case 'energy':
-                cEnergy.value = props.value
+                cEnergy.value = cEnergy.value + props.value < 100 ? cEnergy.value + props.value : 100
                 break;
-            case 'thirst':
-                cThirst.value = props.value
+            case 'drink':
+                cThirst.value = cThirst.value + props.value < 100 ? cThirst.value + props.value : 100
                 break;
-            case 'hunger':
-                cHunger.value = props.value
+            case 'food':
+                cHunger.value = cHunger.value + props.value < 100 ? cHunger.value + props.value : 100
                 break;
             case 'happy':
-                cHappy.value = props.value
+                cHappy.value = cHappy.value + props.value < 100 ? cHappy.value + props.value : 100
                 break;
             case 'hygiene':
-                cHygiene.value = props.value
+                cHygiene.value = cHygiene.value + props.value < 100 ? cHygiene.value + props.value : 100
                 break;
         }
-        console.log('cHunger.value', cHunger.value)
     }
     const dropStat = (props: any) => {
         switch (props.type) {
@@ -107,5 +182,26 @@ export const useAppStore = defineStore('appStore', () => {
         }
     }
 
-    return { statDropRate, statRiseRate, cEnergy, cHappy, cHunger, cThirst, cHygiene, state, dropStat, raiseStat, changeState, updateStat }
+    const changeMenu = (type: string) => {
+        menuType.value = type
+    }
+
+    return {
+        statDropRate,
+        statRiseRate,
+        cEnergy,
+        cHappy,
+        cHunger,
+        cThirst,
+        cHygiene,
+        state,
+        dropStat,
+        raiseStat,
+        changeState,
+        updateStat,
+        foodInventory,
+        drinkInventory,
+        menuType,
+        changeMenu
+    }
 })
