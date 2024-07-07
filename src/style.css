@@ -116,6 +116,58 @@ button:focus-visible {
   z-index: 9;
 }
 
+.status-bubble-wrapper {
+  position: absolute;
+  top: -60px;
+  right: -100px;
+  width: 100px;
+  height: 100px;
+  /* display: none; */
+}
+
+.status-bubble-wrapper.show {
+  display: block;
+}
+
+.status-bubble-wrapper+* {
+  top: -100px;
+  right: -80px;
+}
+
+.status-bubble-wrapper+*+* {
+  top: -100px;
+  right: 20px;
+  transform: scaleX(-1) rotateZ(-10deg);
+}
+
+.status-bubble-wrapper+*+*+* {
+  top: -80px;
+  right: 70px;
+  transform: scaleX(-1);
+}
+
+.status-bubble-wrapper+*+*+*+* {
+  top: -30px;
+  right: 70px;
+  transform: scaleX(-1) rotateZ(20deg);
+}
+
+.bubble {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bubble-icon {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+
 /* Stat Container */
 .stat-container {
   position: relative;
