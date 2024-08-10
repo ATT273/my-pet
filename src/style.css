@@ -212,6 +212,10 @@ button:focus-visible {
   z-index: 9;
 }
 
+.current-stat.xp {
+  background-color: #646cff;
+}
+
 /* Action Container */
 
 .action-container {

@@ -22,13 +22,13 @@ import { useAppStore } from "../stores/AppStore";
 import { getImageURL } from "../utils/images-utils";
 
 const appStore = useAppStore();
-
 type MenuItem = {
     name: string;
     effect: number;
     price: number;
     img: string;
     type: string;
+    xp: number;
 };
 const emits = defineEmits<{
     closeMenuFc: [];
@@ -43,6 +43,13 @@ const selectItem = () => {
         key: props.item.type,
         value: props.item.effect,
     });
+    appStore.updateStat({
+        key: "xp",
+        value: props.item.xp,
+    });
+    if (appStore.curXp === appStore.lvlXp) {
+        appStore.updateLvl(appStore.curLvl + 1);
+    }
     emits("closeMenuFc");
 };
 </script>
