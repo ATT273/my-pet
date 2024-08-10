@@ -8,7 +8,7 @@
             <button class="btn rounded" @click="() => showMenu('drink')">
                 Drink
             </button>
-            <button class="btn rounded" @click="() => showMenu('game')">
+            <button class="btn rounded" @click="play">
                 Play
             </button>
             <button class="btn rounded" @click="clean">Clean</button>
@@ -32,6 +32,12 @@ const rest = () => {
 const clean = () => {
     appStore.updateStat({
         key: "hygiene",
+        value: 100,
+    });
+};
+const play = () => {
+    appStore.updateStat({
+        key: "happy",
         value: 100,
     });
 };

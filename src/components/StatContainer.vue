@@ -6,6 +6,9 @@
         <StatDetail title="Thirst" :value="appStore.cThirst" />
         <StatDetail title="Hygiene" :value="appStore.cHygiene" />
     </div>
+    <div class="xp-container">
+        <StatDetail title="EXP" :value="appStore.xp" />
+    </div>
 </template>
 
 <script setup>

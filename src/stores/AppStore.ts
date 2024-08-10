@@ -22,8 +22,10 @@ export const useAppStore = defineStore('appStore', () => {
     let cHappy = ref(100)
     let cHygiene = ref(50)
     let menuType = ref('food')
-
-
+    let curXp = ref(10)
+    let curLvl = ref(1)
+    let lvlXp = ref(100)
+    const evolveMark = [2, 3, 6, 9, 12]
     // Inventory
     const foodInventory = ref([
         {
@@ -31,35 +33,40 @@ export const useAppStore = defineStore('appStore', () => {
             effect: 20,
             price: 50,
             img: "grilled_fish.png",
-            type: "food"
+            type: "food",
+            xp: 30
         },
         {
             name: "Rice bowl",
             effect: 5,
             price: 10,
             img: "rice_bowl.png",
-            type: "food"
+            type: "food",
+            xp: 5
         },
         {
             name: "Cake slide",
             effect: 10,
             price: 25,
             img: "slice_of_cake.jpg",
-            type: "food"
+            type: "food",
+            xp: 5
         },
         {
             name: "Omlet",
             effect: 10,
             price: 25,
             img: "omlet.png",
-            type: "food"
+            type: "food",
+            xp: 10
         },
         {
             name: "Salad bowl",
             effect: 15,
             price: 30,
             img: "salad_bowl.jpg",
-            type: "food"
+            type: "food",
+            xp: 15
         }
     ])
     const drinkInventory = ref([
@@ -68,42 +75,56 @@ export const useAppStore = defineStore('appStore', () => {
             effect: 5,
             price: 10,
             img: "water.jpg",
-            type: "drink"
+            type: "drink",
+            xp: 5
         },
         {
             name: "Coffee",
             effect: 20,
             price: 25,
             img: "coffee.jpg",
-            type: "drink"
+            type: "drink",
+            xp: 15
         },
         {
             name: "Cola",
             effect: 25,
             price: 20,
             img: "cola.png",
-            type: "drink"
+            type: "drink",
+            xp: 5
         },
         {
             name: "Orange Juice",
             effect: 30,
             price: 30,
             img: "orange_juice.jpg",
-            type: "drink"
+            type: "drink",
+            xp: 20
         },
         {
             name: "Milk",
             effect: 20,
             price: 15,
             img: "milk.jpg",
-            type: "drink"
+            type: "drink",
+            xp: 20
         },
     ])
     const changeState = (value: string) => {
         state.value = value
     }
 
+    const updateLxlXp = (value: number) => {
+        lvlXp.value = value
+    }
+    const updateLvl = (value: number) => {
+        curLvl.value = value
+        lvlXp.value = 100 * value * 2;
+        curXp.value = 0
+    }
     const updateStat = (props: { key: string, value: number }) => {
+        // console.log(props.key, props.value)
         switch (props.key) {
             case 'energy':
                 cEnergy.value = cEnergy.value + props.value < 100 ? cEnergy.value + props.value : 100
@@ -119,6 +140,9 @@ export const useAppStore = defineStore('appStore', () => {
                 break;
             case 'hygiene':
                 cHygiene.value = cHygiene.value + props.value < 100 ? cHygiene.value + props.value : 100
+                break;
+            case 'xp':
+                curXp.value = curXp.value + props.value < lvlXp.value ? curXp.value + props.value : lvlXp.value
                 break;
         }
     }
@@ -202,6 +226,12 @@ export const useAppStore = defineStore('appStore', () => {
         foodInventory,
         drinkInventory,
         menuType,
-        changeMenu
+        changeMenu,
+        curXp,
+        lvlXp,
+        updateLvl,
+        updateLxlXp,
+        curLvl,
+        evolveMark
     }
 })
